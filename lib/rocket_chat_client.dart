@@ -1,3 +1,19 @@
 library rocket_chat_client;
 
-export 'package:rocket_chat_client/src/rocket_chat_client_impl.dart';
+import 'package:rocket_chat_client/services/api_services.dart';
+
+import 'api/rocket_chat_api.dart';
+
+class RocketChatClient {
+  final String url;
+  late ApiServices _apiServices;
+  RocketChatApi get api => _apiServices.client;
+
+  RocketChatClient({required this.url}) {
+    _apiServices = ApiServices(baseUrl: url);
+  }
+
+  void setTokenInfo({required String token, required String userId}) {
+    _apiServices.setTokenInfo(token: token, userId: userId);
+  }
+}

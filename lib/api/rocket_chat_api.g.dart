@@ -134,7 +134,7 @@ class _RocketChatApi implements RocketChatApi {
 
   @override
   Future<ChannelMessages> channelHistory(
-      {required roomId,
+      {roomId = '',
       latest = '',
       oldest = '',
       inclusive = false,
@@ -275,6 +275,37 @@ class _RocketChatApi implements RocketChatApi {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CreateRoomResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ChannelMessages> groupsHistory(
+      {roomId = '',
+      latest = '',
+      oldest = '',
+      inclusive = false,
+      offset = 0,
+      count = 20,
+      unreads = false}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'roomId': roomId,
+      r'latest': latest,
+      r'oldest': oldest,
+      r'inclusive': inclusive,
+      r'offset': offset,
+      r'count': count,
+      r'unreads': unreads
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ChannelMessages>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/groups.history',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ChannelMessages.fromJson(_result.data!);
     return value;
   }
 

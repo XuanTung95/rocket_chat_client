@@ -6,6 +6,9 @@ class ApiServices {
   late RocketChatApi _client;
   final headersInterceptor = RequestHeadersInterceptor();
 
+  String? get authToken => headersInterceptor.authToken;
+  String? get userId => headersInterceptor.userId;
+
   void setTokenInfo({required String token, required String userId}) {
     headersInterceptor.authToken = token;
     headersInterceptor.userId = userId;
@@ -27,15 +30,15 @@ class ApiServices {
 }
 
 class RequestHeadersInterceptor extends Interceptor {
-  String authToken = '';
-  String userId = '';
+  String? authToken;
+  String? userId;
 
   @override
   void onRequest(RequestOptions options,
       RequestInterceptorHandler handler,) {
     options.headers['Content-type'] = 'application/json';
-    options.headers['X-Auth-Token'] = authToken;
-    options.headers['X-User-Id'] = userId;
+    options.headers['X-Auth-Token'] = authToken ?? '';
+    options.headers['X-User-Id'] = userId ?? '';
     handler.next(options);
   }
 

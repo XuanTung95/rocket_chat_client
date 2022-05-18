@@ -9,6 +9,9 @@ class RocketChatClient {
   late ApiServices _apiServices;
   RocketChatApi get api => _apiServices.client;
 
+  String? get authToken => _apiServices.authToken;
+  String? get userId => _apiServices.userId;
+
   RocketChatClient({required this.url}) {
     _apiServices = ApiServices(baseUrl: url);
   }

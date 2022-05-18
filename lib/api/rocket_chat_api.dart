@@ -51,7 +51,7 @@ abstract class RocketChatApi {
   Future<SuccessResponse> markAsRead(@Body() Map<String, String?> body);
 
   @GET("/api/v1/channels.history")
-  Future<ChannelMessages> channelHistory({@Query("roomId") required String roomId,
+  Future<ChannelMessages> channelHistory({@Query("roomId") String roomId = '',
         @Query("latest") String latest = '',
         @Query("oldest") String oldest = '',
         @Query("inclusive") bool inclusive = false,
@@ -59,7 +59,6 @@ abstract class RocketChatApi {
         @Query("count") int count = 20,
         @Query("unreads") bool unreads = false,
       });
-
 
   @GET("/api/v1/channels.counters")
   Future<ChannelCounters> channelCounters(@Query("roomId") String roomId,);
@@ -82,6 +81,16 @@ abstract class RocketChatApi {
 
   @POST('/api/v1/groups.create')
   Future<CreateRoomResponse> createGroup(@Body() ChannelNew body);
+
+  @GET("/api/v1/groups.history")
+  Future<ChannelMessages> groupsHistory({@Query("roomId") String roomId = '',
+    @Query("latest") String latest = '',
+    @Query("oldest") String oldest = '',
+    @Query("inclusive") bool inclusive = false,
+    @Query("offset") int offset = 0,
+    @Query("count") int count = 20,
+    @Query("unreads") bool unreads = false,
+  });
 
   @POST('/api/v1/groups.delete')
   Future<SuccessResponse> deleteGroup(@Body() DeleteRoomRequest body);

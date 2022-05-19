@@ -25,7 +25,7 @@ class RoomMessages {
             : json['messages'];
         messages = jsonList
             .where((json) => json != null)
-            .map((json) => Message.fromMap(json))
+            .map((json) => Message.fromJson(json))
             .toList();
       } else {
         messages = null;

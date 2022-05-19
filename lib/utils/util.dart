@@ -3,7 +3,7 @@ import 'dart:async';
 
 
 String hostToWS ({required String host, bool ssl = false}) {
-  host = host.replaceAllMapped(RegExp(r'/^(https?:\/\/)?/'), (_) => '');
+  host = host.replaceAllMapped(RegExp("^(http|https)://"), (_) => '');
   return "ws${ssl ? 's' : ''}://$host";
 }
 

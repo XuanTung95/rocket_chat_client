@@ -42,7 +42,7 @@ RoomDisplay _$RoomDisplayFromJson(Map<String, dynamic> json) => RoomDisplay(
           : DateTime.parse(json['_updatedAt'] as String),
       lastMessage: json['lastMessage'] == null
           ? null
-          : LastMessage.fromJson(json['lastMessage'] as Map<String, dynamic>),
+          : Message.fromJson(json['lastMessage'] as Map<String, dynamic>),
       lm: json['lm'] == null ? null : DateTime.parse(json['lm'] as String),
       fname: json['fname'] as String?,
       customFields: json['customFields'] == null
@@ -82,41 +82,6 @@ Map<String, dynamic> _$RoomDisplayToJson(RoomDisplay instance) =>
       'prid': instance.prid,
     };
 
-LastMessage _$LastMessageFromJson(Map<String, dynamic> json) => LastMessage(
-      sId: json['_id'] as String?,
-      rid: json['rid'] as String?,
-      msg: json['msg'] as String?,
-      ts: json['ts'] == null ? null : DateTime.parse(json['ts'] as String),
-      u: json['u'] == null
-          ? null
-          : RoomMember.fromJson(json['u'] as Map<String, dynamic>),
-      sUpdatedAt: json['_updatedAt'] == null
-          ? null
-          : DateTime.parse(json['_updatedAt'] as String),
-      urls: (json['urls'] as List<dynamic>?)
-          ?.map((e) => Urls.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      mentions: (json['mentions'] as List<dynamic>?)
-          ?.map((e) => Mentions.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      md: (json['md'] as List<dynamic>?)
-          ?.map((e) => Md.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$LastMessageToJson(LastMessage instance) =>
-    <String, dynamic>{
-      '_id': instance.sId,
-      'rid': instance.rid,
-      'msg': instance.msg,
-      'ts': instance.ts?.toIso8601String(),
-      'u': instance.u,
-      '_updatedAt': instance.sUpdatedAt?.toIso8601String(),
-      'urls': instance.urls,
-      'mentions': instance.mentions,
-      'md': instance.md,
-    };
-
 RoomMember _$RoomMemberFromJson(Map<String, dynamic> json) => RoomMember(
       sId: json['_id'] as String?,
       username: json['username'] as String?,
@@ -128,28 +93,6 @@ Map<String, dynamic> _$RoomMemberToJson(RoomMember instance) =>
       '_id': instance.sId,
       'username': instance.username,
       'name': instance.name,
-    };
-
-Urls _$UrlsFromJson(Map<String, dynamic> json) => Urls(
-      url: json['url'] as String?,
-    );
-
-Map<String, dynamic> _$UrlsToJson(Urls instance) => <String, dynamic>{
-      'url': instance.url,
-    };
-
-Mentions _$MentionsFromJson(Map<String, dynamic> json) => Mentions(
-      sId: json['_id'] as String?,
-      name: json['name'] as String?,
-      username: json['username'] as String?,
-      type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$MentionsToJson(Mentions instance) => <String, dynamic>{
-      '_id': instance.sId,
-      'name': instance.name,
-      'username': instance.username,
-      'type': instance.type,
     };
 
 Md _$MdFromJson(Map<String, dynamic> json) => Md(

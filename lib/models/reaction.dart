@@ -7,13 +7,13 @@ class Reaction {
     this.usernames,
   });
 
-  Reaction.fromMap(Map<String, dynamic> json) {
+  Reaction.fromJson(Map<String, dynamic> json) {
     if (json != null) {
       usernames = List<String>.from(json['usernames']);
     }
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {};
 
     if (usernames != null) {

@@ -5,13 +5,13 @@ class Bot {
     this.i,
   });
 
-  Bot.fromMap(Map<String, dynamic>? json) {
+  Bot.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
       i = json['i'];
     }
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {};
 
     if (i != null) {

@@ -9,13 +9,13 @@ class Mention {
     this.username,
   });
 
-  Mention.fromMap(dynamic json) {
+  Mention.fromJson(dynamic json) {
     id = json["_id"];
     name = json["name"];
     username = json["username"];
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map["_id"] = id;
     map["name"] = name;

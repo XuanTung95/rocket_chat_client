@@ -19,7 +19,7 @@ class MessageNewResponse {
       ts = json['ts'];
       channel = json['channel'];
       message =
-          json['message'] != null ? Message.fromMap(json['message']) : null;
+          json['message'] != null ? Message.fromJson(json['message']) : null;
       success = json['success'];
     }
   }

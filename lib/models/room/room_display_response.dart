@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../message.dart';
+
 part 'room_display_response.g.dart';
 
 @JsonSerializable()
@@ -36,7 +38,7 @@ class RoomDisplay {
   List<String>? usernames;
   List<String>? uids;
   // bool? default;
-  LastMessage? lastMessage;
+  Message? lastMessage;
   DateTime? lm;
   String? description;
   String? prid;
@@ -68,37 +70,6 @@ class RoomDisplay {
 }
 
 @JsonSerializable()
-class LastMessage {
-  @JsonKey(name: '_id')
-  String? sId;
-  String? rid;
-  String? msg;
-  DateTime? ts;
-  RoomMember? u;
-  @JsonKey(name: '_updatedAt')
-  DateTime? sUpdatedAt;
-  List<Urls>? urls;
-  List<Mentions>? mentions;
-
-  // List<Null>? channels;
-  List<Md>? md;
-
-  LastMessage(
-      {this.sId,
-      this.rid,
-      this.msg,
-      this.ts,
-      this.u,
-      this.sUpdatedAt,
-      this.urls,
-      this.mentions,
-      this.md});
-
-  factory LastMessage.fromJson(Map<String, dynamic> json) => _$LastMessageFromJson(json);
-  Map<String, dynamic> toJson() => _$LastMessageToJson(this);
-}
-
-@JsonSerializable()
 class RoomMember {
   @JsonKey(name: '_id')
   String? sId;
@@ -109,30 +80,6 @@ class RoomMember {
 
   factory RoomMember.fromJson(Map<String, dynamic> json) => _$RoomMemberFromJson(json);
   Map<String, dynamic> toJson() => _$RoomMemberToJson(this);
-}
-
-@JsonSerializable()
-class Urls {
-  String? url;
-
-  Urls({this.url});
-
-  factory Urls.fromJson(Map<String, dynamic> json) => _$UrlsFromJson(json);
-  Map<String, dynamic> toJson() => _$UrlsToJson(this);
-}
-
-@JsonSerializable()
-class Mentions {
-  @JsonKey(name: '_id')
-  String? sId;
-  String? name;
-  String? username;
-  String? type;
-
-  Mentions({this.sId, this.name, this.username, this.type});
-
-  factory Mentions.fromJson(Map<String, dynamic> json) => _$MentionsFromJson(json);
-  Map<String, dynamic> toJson() => _$MentionsToJson(this);
 }
 
 @JsonSerializable()

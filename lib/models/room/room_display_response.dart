@@ -42,6 +42,8 @@ class RoomDisplay {
   DateTime? lm;
   String? description;
   String? prid;
+  String? announcement;
+  String? topic;
 
   RoomDisplay(
       {this.sId,

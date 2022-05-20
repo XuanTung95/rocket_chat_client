@@ -19,7 +19,7 @@ class Message {
   bool? parseUrls;
   Bot? bot;
   bool? groupable;
-  String? t;
+  String? t; // type of message
   DateTime? ts;
   @JsonKey(name: 'u')
   UserModel? user;

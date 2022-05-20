@@ -56,7 +56,9 @@ RoomDisplay _$RoomDisplayFromJson(Map<String, dynamic> json) => RoomDisplay(
           ? null
           : RoomMember.fromJson(json['u'] as Map<String, dynamic>),
       prid: json['prid'] as String?,
-    );
+    )
+      ..announcement = json['announcement'] as String?
+      ..topic = json['topic'] as String?;
 
 Map<String, dynamic> _$RoomDisplayToJson(RoomDisplay instance) =>
     <String, dynamic>{
@@ -80,6 +82,8 @@ Map<String, dynamic> _$RoomDisplayToJson(RoomDisplay instance) =>
       'lm': instance.lm?.toIso8601String(),
       'description': instance.description,
       'prid': instance.prid,
+      'announcement': instance.announcement,
+      'topic': instance.topic,
     };
 
 RoomMember _$RoomMemberFromJson(Map<String, dynamic> json) => RoomMember(

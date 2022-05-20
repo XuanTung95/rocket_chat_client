@@ -17,6 +17,7 @@ import '../models/room/create_room_response.dart';
 import '../models/room/delete_room_request.dart';
 import '../models/room/group_member_response.dart';
 import '../models/room/room_display_response.dart';
+import '../models/room/room_setting_request.dart';
 import '../models/room/room_update_user_request.dart';
 import '../models/subscription.dart';
 import '../models/user.dart';
@@ -81,6 +82,10 @@ abstract class RocketChatApi {
 
   @POST('/api/v1/groups.create')
   Future<CreateRoomResponse> createGroup(@Body() ChannelNew body);
+
+  @POST('/api/v1/rooms.saveRoomSettings')
+  Future<SuccessResponse> saveRoomSettings(@Body() RoomSettingRequest body);
+
 
   @GET("/api/v1/groups.history")
   Future<ChannelMessages> groupsHistory({@Query("roomId") String roomId = '',

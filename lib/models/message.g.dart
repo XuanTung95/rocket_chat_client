@@ -44,6 +44,12 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           ? null
           : DateTime.parse(json['editedAt'] as String),
       urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      file: json['file'] == null
+          ? null
+          : FileModel.fromJson(json['file'] as Map<String, dynamic>),
+      files: (json['files'] as List<dynamic>?)
+          ?.map((e) => FileModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )
       ..id = json['_id'] as String?
       ..updatedAt = json['_updatedAt'] == null
@@ -76,4 +82,6 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'editedAt': instance.editedAt?.toIso8601String(),
       'urls': instance.urls,
       'md': instance.md,
+      'file': instance.file,
+      'files': instance.files,
     };

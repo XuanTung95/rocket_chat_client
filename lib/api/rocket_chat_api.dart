@@ -7,6 +7,7 @@ import '../models/channel_counters.dart';
 import '../models/channel_messages.dart';
 import '../models/default_response.dart';
 import '../models/message/send_message_req.dart';
+import '../models/method/add_user_to_room_request.dart';
 import '../models/new/channel_new.dart';
 import '../models/new/message_new.dart';
 import '../models/response/channel_new_response.dart';
@@ -15,6 +16,7 @@ import '../models/response/message_new_response.dart';
 import '../models/response/response.dart';
 import '../models/room/create_room_response.dart';
 import '../models/room/delete_room_request.dart';
+import '../models/room/group_files_response.dart';
 import '../models/room/group_member_response.dart';
 import '../models/room/room_display_response.dart';
 import '../models/room/room_setting_request.dart';
@@ -52,17 +54,20 @@ abstract class RocketChatApi {
   Future<SuccessResponse> markAsRead(@Body() Map<String, String?> body);
 
   @GET("/api/v1/channels.history")
-  Future<ChannelMessages> channelHistory({@Query("roomId") String roomId = '',
-        @Query("latest") String latest = '',
-        @Query("oldest") String oldest = '',
-        @Query("inclusive") bool inclusive = false,
-        @Query("offset") int offset = 0,
-        @Query("count") int count = 20,
-        @Query("unreads") bool unreads = false,
-      });
+  Future<ChannelMessages> channelHistory({
+    @Query("roomId") String roomId = '',
+    @Query("latest") String latest = '',
+    @Query("oldest") String oldest = '',
+    @Query("inclusive") bool inclusive = false,
+    @Query("offset") int offset = 0,
+    @Query("count") int count = 20,
+    @Query("unreads") bool unreads = false,
+  });
 
   @GET("/api/v1/channels.counters")
-  Future<ChannelCounters> channelCounters(@Query("roomId") String roomId,);
+  Future<ChannelCounters> channelCounters(
+    @Query("roomId") String roomId,
+  );
 
   @POST('/api/v1/chat.postMessage')
   Future<MessageNewResponse> postMessage(@Body() MessageNew message);
@@ -86,9 +91,9 @@ abstract class RocketChatApi {
   @POST('/api/v1/rooms.saveRoomSettings')
   Future<SuccessResponse> saveRoomSettings(@Body() RoomSettingRequest body);
 
-
   @GET("/api/v1/groups.history")
-  Future<ChannelMessages> groupsHistory({@Query("roomId") String roomId = '',
+  Future<ChannelMessages> groupsHistory({
+    @Query("roomId") String roomId = '',
     @Query("latest") String latest = '',
     @Query("oldest") String oldest = '',
     @Query("inclusive") bool inclusive = false,
@@ -101,12 +106,31 @@ abstract class RocketChatApi {
   Future<SuccessResponse> deleteGroup(@Body() DeleteRoomRequest body);
 
   @GET("/api/v1/groups.members")
-  Future<GroupMembersResponse> getGroupsMembers(@Query("roomId") String roomId,);
+  Future<GroupMembersResponse> getGroupsMembers(
+    @Query("roomId") String roomId,
+  );
 
   @POST('/api/v1/groups.kick')
   Future<SuccessResponse> groupsKick(@Body() RoomUpdateUserRequest body);
 
+  @POST('/api/v1/method.call/addUsersToRoom')
+  Future<SuccessResponse> addUsersToRoom(@Body() AddUserToRoomRequest body);
+
+  @GET('/api/v1/groups.files')
+  Future<GroupFilesResponse> groupsFiles(
+      {@Query("roomId") String roomId = '',
+      @Query("offset") int offset = 0,
+      @Query("count") int count = 40,
+      @Query("sort") String? sort,
+      @Query("query") String? query});
+
   // AutoCompleteSelector
   @GET('/api/v1/users.autocomplete')
-  Future<UsersAutocompleteResponse> usersAutocomplete(@Query("selector") String selector,);
+  Future<UsersAutocompleteResponse> usersAutocomplete(
+    @Query("selector") String selector,
+  );
+
+  @POST('/api/v1/rooms.upload/{roomId}')
+  Future<SuccessResponse> uploadFileToRoom(
+      @Path("roomId") String roomId, @Body() FormData data);
 }

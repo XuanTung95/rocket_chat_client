@@ -4,6 +4,7 @@ import 'package:rocket_chat_client/models/room/room_display_response.dart';
 import 'package:rocket_chat_client/models/user.dart';
 
 import 'bot.dart';
+import 'file_model.dart';
 import 'mention.dart';
 import 'message_attachment.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -38,6 +39,8 @@ class Message {
   DateTime? editedAt;
   List<String>? urls;
   List<Md>? md;
+  FileModel? file;
+  List<FileModel>? files;
 
   Message({
     this.alias,
@@ -59,6 +62,8 @@ class Message {
     this.editedBy,
     this.editedAt,
     this.urls,
+    this.file,
+    this.files,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);

@@ -377,6 +377,72 @@ class _RocketChatApi implements RocketChatApi {
   }
 
   @override
+  Future<SuccessResponse> roomsLeave(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SuccessResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/rooms.leave',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SuccessResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<RoomInfoResponse> getRoomsInfo(roomId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'roomId': roomId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<RoomInfoResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/rooms.info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = RoomInfoResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GroupRolesResponse> groupsRoles(roomId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'roomId': roomId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GroupRolesResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/groups.roles',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GroupRolesResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SuccessResponse> groupsAddOwner(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SuccessResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/groups.addOwner',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SuccessResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<SuccessResponse> addUsersToRoom(body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -434,7 +500,7 @@ class _RocketChatApi implements RocketChatApi {
   }
 
   @override
-  Future<SuccessResponse> uploadFileToRoom(roomId, data) async {
+  Future<SuccessResponse> uploadFileToRoom(roomId, data, sendProgress) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -443,7 +509,9 @@ class _RocketChatApi implements RocketChatApi {
         _setStreamType<SuccessResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/api/v1/rooms.upload/${roomId}',
-                    queryParameters: queryParameters, data: _data)
+                    queryParameters: queryParameters,
+                    data: _data,
+                    onSendProgress: sendProgress)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SuccessResponse.fromJson(_result.data!);
     return value;

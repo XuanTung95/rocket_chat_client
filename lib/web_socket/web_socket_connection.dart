@@ -21,14 +21,16 @@ class WebSocketConnection extends ValueNotifier<SocketConnectionStatus> {
 
   /// Handle when socket is closed
   Future<bool> onClose() async {
-    await Future.delayed(Duration(seconds: 5));
-    return true;
+    return false;
   }
 
   /// Handle when cannot create a connection
   Future<bool> onConnectError(dynamic error) async {
-    await Future.delayed(Duration(seconds: 5));
-    return true;
+    return false;
+  }
+
+  Future<bool> reconnect() async {
+    return _autoWebSocket.reconnect();
   }
 
   WebSocketConnection({required this.url, required this.onMessage, this.onLoggedIn})
@@ -43,8 +45,16 @@ class WebSocketConnection extends ValueNotifier<SocketConnectionStatus> {
       },
     );
     _autoWebSocket.addListener(() async {
-      if (_autoWebSocket.value == ConnectionState.connected) {
-        _onWebSocketConnected();
+      switch (_autoWebSocket.value) {
+        case ConnectionState.connected:
+          _onWebSocketConnected();
+          break;
+        case ConnectionState.connecting:
+          value = SocketConnectionStatus.connecting;
+          break;
+        case ConnectionState.disconnected:
+          value = SocketConnectionStatus.disconnected;
+          break;
       }
     });
     _autoWebSocket.stream.listen((dynamic msg) => handleIncomingMessage(msg));

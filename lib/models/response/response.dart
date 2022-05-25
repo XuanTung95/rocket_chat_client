@@ -1,6 +1,10 @@
 class SuccessResponse {
   bool? success;
 
+  String? error;
+  String? errorType;
+
+
   SuccessResponse({
     this.success = false,
   });
@@ -8,11 +12,15 @@ class SuccessResponse {
   SuccessResponse.fromJson(Map<String, dynamic>? json) {
     if (json != null) {
       success = json['success'];
+      error = json['error'];
+      errorType = json['errorType'];
     }
   }
 
   Map<String, dynamic> toJson() => {
         'success': success,
+        'error': error,
+        'errorType': errorType,
       };
 
   @override

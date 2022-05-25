@@ -18,7 +18,9 @@ import '../models/room/create_room_response.dart';
 import '../models/room/delete_room_request.dart';
 import '../models/room/group_files_response.dart';
 import '../models/room/group_member_response.dart';
+import '../models/room/group_roles_response.dart';
 import '../models/room/room_display_response.dart';
+import '../models/room/room_info_response.dart';
 import '../models/room/room_setting_request.dart';
 import '../models/room/room_update_user_request.dart';
 import '../models/subscription.dart';
@@ -113,6 +115,18 @@ abstract class RocketChatApi {
   @POST('/api/v1/groups.kick')
   Future<SuccessResponse> groupsKick(@Body() RoomUpdateUserRequest body);
 
+  @POST('/api/v1/rooms.leave')
+  Future<SuccessResponse> roomsLeave(@Body() DeleteRoomRequest body);
+
+  @GET('/api/v1/rooms.info')
+  Future<RoomInfoResponse> getRoomsInfo(@Query("roomId") String roomId,);
+
+  @GET('/api/v1/groups.roles')
+  Future<GroupRolesResponse> groupsRoles(@Query("roomId") String roomId,);
+
+  @POST('/api/v1/groups.addOwner')
+  Future<SuccessResponse> groupsAddOwner(@Body() RoomUpdateUserRequest body);
+
   @POST('/api/v1/method.call/addUsersToRoom')
   Future<SuccessResponse> addUsersToRoom(@Body() AddUserToRoomRequest body);
 
@@ -132,5 +146,5 @@ abstract class RocketChatApi {
 
   @POST('/api/v1/rooms.upload/{roomId}')
   Future<SuccessResponse> uploadFileToRoom(
-      @Path("roomId") String roomId, @Body() FormData data);
+      @Path("roomId") String roomId, @Body() FormData data, @SendProgress() ProgressCallback sendProgress);
 }

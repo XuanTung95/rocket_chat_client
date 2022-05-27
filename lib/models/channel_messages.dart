@@ -7,6 +7,7 @@ class ChannelMessages {
   int? count;
   int? offset;
   int? total;
+  int? unreadNotLoaded;
   bool? success;
 
   ChannelMessages({
@@ -35,6 +36,7 @@ class ChannelMessages {
       offset = json['offset'];
       total = json['total'];
       success = json['success'];
+      unreadNotLoaded = json['unreadNotLoaded'];
     }
   }
 
@@ -63,6 +65,9 @@ class ChannelMessages {
 
     if (success != null) {
       map['success'] = success;
+    }
+    if (success != null) {
+      map['unreadNotLoaded'] = unreadNotLoaded;
     }
 
     return map;

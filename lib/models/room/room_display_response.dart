@@ -20,7 +20,7 @@ class RoomDisplayResponse {
 @JsonSerializable()
 class RoomDisplay {
   @JsonKey(name: '_id')
-  String? sId;
+  String? id;
   String? t;
   String? fname;
   CustomFields? customFields;
@@ -46,7 +46,7 @@ class RoomDisplay {
   String? topic;
 
   RoomDisplay(
-      {this.sId,
+      {this.id,
       this.t,
       this.usernames,
       this.usersCount,

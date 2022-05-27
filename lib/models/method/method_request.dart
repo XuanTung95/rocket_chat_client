@@ -2,7 +2,7 @@ class MethodRequest {
   String? msg;
   String? id;
   String? method;
-  List<Map<String, dynamic>>? params;
+  List<dynamic>? params;
 
   MethodRequest({this.msg, this.id, this.method, this.params});
 

@@ -26,7 +26,7 @@ Map<String, dynamic> _$RoomDisplayResponseToJson(
     };
 
 RoomDisplay _$RoomDisplayFromJson(Map<String, dynamic> json) => RoomDisplay(
-      sId: json['_id'] as String?,
+      id: json['_id'] as String?,
       t: json['t'] as String?,
       usernames: (json['usernames'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -62,7 +62,7 @@ RoomDisplay _$RoomDisplayFromJson(Map<String, dynamic> json) => RoomDisplay(
 
 Map<String, dynamic> _$RoomDisplayToJson(RoomDisplay instance) =>
     <String, dynamic>{
-      '_id': instance.sId,
+      '_id': instance.id,
       't': instance.t,
       'fname': instance.fname,
       'customFields': instance.customFields,

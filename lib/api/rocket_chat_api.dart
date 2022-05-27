@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
+import 'package:rocket_chat_client/models/method/create_direct_message_response.dart';
+import 'package:rocket_chat_client/models/notification/push_token_request.dart';
 import '../models/authen/login.dart';
 import '../models/authentication.dart';
 import '../models/channel_counters.dart';
@@ -8,6 +10,8 @@ import '../models/channel_messages.dart';
 import '../models/default_response.dart';
 import '../models/message/send_message_req.dart';
 import '../models/method/add_user_to_room_request.dart';
+import '../models/method/create_direct_message_request.dart';
+import '../models/method/get_room_by_name_request.dart';
 import '../models/new/channel_new.dart';
 import '../models/new/message_new.dart';
 import '../models/response/channel_new_response.dart';
@@ -112,6 +116,11 @@ abstract class RocketChatApi {
     @Query("roomId") String roomId,
   );
 
+  @GET("/api/v1/im.members")
+  Future<GroupMembersResponse> getDirectMessageMembers(
+      @Query("roomId") String roomId,
+      );
+
   @POST('/api/v1/groups.kick')
   Future<SuccessResponse> groupsKick(@Body() RoomUpdateUserRequest body);
 
@@ -138,6 +147,14 @@ abstract class RocketChatApi {
       @Query("sort") String? sort,
       @Query("query") String? query});
 
+  @GET('/api/v1/im.files')
+  Future<GroupFilesResponse> directMessageFiles(
+      {@Query("roomId") String roomId = '',
+        @Query("offset") int offset = 0,
+        @Query("count") int count = 40,
+        @Query("sort") String? sort,
+        @Query("query") String? query});
+
   // AutoCompleteSelector
   @GET('/api/v1/users.autocomplete')
   Future<UsersAutocompleteResponse> usersAutocomplete(
@@ -147,4 +164,30 @@ abstract class RocketChatApi {
   @POST('/api/v1/rooms.upload/{roomId}')
   Future<SuccessResponse> uploadFileToRoom(
       @Path("roomId") String roomId, @Body() FormData data, @SendProgress() ProgressCallback sendProgress);
+
+
+  @POST('/api/v1/method.call/getRoomByTypeAndName')
+  Future<UsersAutocompleteResponse> getRoomByTypeAndName(
+      @Body() GetRoomByNameRequest body);
+
+
+  @POST('/api/v1/method.call/createDirectMessage')
+  Future<CreateDirectMessageResponse> createDirectMessage(
+      @Body() CreateDirectMessageRequest body);
+
+  @GET("/api/v1/im.history")
+  Future<ChannelMessages> directMessageHistory({
+    @Query("roomId") String roomId = '',
+    @Query("latest") String latest = '',
+    @Query("oldest") String oldest = '',
+    @Query("inclusive") bool inclusive = false,
+    @Query("offset") int offset = 0,
+    @Query("count") int count = 20,
+    @Query("unreads") bool unreads = false,
+  });
+
+  @POST('/api/v1/push.token')
+  Future<SuccessResponse> pushToken(
+      @Body() PushTokenRequest body);
+
 }

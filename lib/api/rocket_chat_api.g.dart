@@ -360,6 +360,22 @@ class _RocketChatApi implements RocketChatApi {
   }
 
   @override
+  Future<GroupMembersResponse> getDirectMessageMembers(roomId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'roomId': roomId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GroupMembersResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/im.members',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GroupMembersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<SuccessResponse> groupsKick(body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -484,6 +500,30 @@ class _RocketChatApi implements RocketChatApi {
   }
 
   @override
+  Future<GroupFilesResponse> directMessageFiles(
+      {roomId = '', offset = 0, count = 40, sort, query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'roomId': roomId,
+      r'offset': offset,
+      r'count': count,
+      r'sort': sort,
+      r'query': query
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GroupFilesResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/im.files',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GroupFilesResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UsersAutocompleteResponse> usersAutocomplete(selector) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'selector': selector};
@@ -512,6 +552,90 @@ class _RocketChatApi implements RocketChatApi {
                     queryParameters: queryParameters,
                     data: _data,
                     onSendProgress: sendProgress)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SuccessResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UsersAutocompleteResponse> getRoomByTypeAndName(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UsersAutocompleteResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(
+                    _dio.options, '/api/v1/method.call/getRoomByTypeAndName',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UsersAutocompleteResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CreateDirectMessageResponse> createDirectMessage(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CreateDirectMessageResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(
+                    _dio.options, '/api/v1/method.call/createDirectMessage',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CreateDirectMessageResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ChannelMessages> directMessageHistory(
+      {roomId = '',
+      latest = '',
+      oldest = '',
+      inclusive = false,
+      offset = 0,
+      count = 20,
+      unreads = false}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'roomId': roomId,
+      r'latest': latest,
+      r'oldest': oldest,
+      r'inclusive': inclusive,
+      r'offset': offset,
+      r'count': count,
+      r'unreads': unreads
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ChannelMessages>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/im.history',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ChannelMessages.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SuccessResponse> pushToken(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SuccessResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/push.token',
+                    queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SuccessResponse.fromJson(_result.data!);
     return value;

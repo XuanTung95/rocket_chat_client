@@ -43,7 +43,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       editedAt: json['editedAt'] == null
           ? null
           : DateTime.parse(json['editedAt'] as String),
-      urls: (json['urls'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      urls: json['urls'] as List<dynamic>?,
       file: json['file'] == null
           ? null
           : FileModel.fromJson(json['file'] as Map<String, dynamic>),

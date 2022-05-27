@@ -37,7 +37,7 @@ class Message {
   List<MessageAttachment>? attachments;
   UserModel? editedBy;
   DateTime? editedAt;
-  List<String>? urls;
+  List<dynamic>? urls;
   List<Md>? md;
   FileModel? file;
   List<FileModel>? files;

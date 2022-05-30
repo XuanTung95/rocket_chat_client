@@ -8,6 +8,7 @@ import '../models/authentication.dart';
 import '../models/channel_counters.dart';
 import '../models/channel_messages.dart';
 import '../models/default_response.dart';
+import '../models/message/delete_message_body.dart';
 import '../models/message/send_message_req.dart';
 import '../models/method/add_user_to_room_request.dart';
 import '../models/method/create_direct_message_request.dart';
@@ -91,6 +92,9 @@ abstract class RocketChatApi {
   @POST('/api/v1/chat.sendMessage')
   Future<MessageNewResponse> sendMessage(@Body() SendMessageRequest message);
 
+  @POST('/api/v1/chat.delete')
+  Future<MessageNewResponse> deleteChatMessage(@Body() DeleteMessageBody message);
+
   @POST('/api/v1/groups.create')
   Future<CreateRoomResponse> createGroup(@Body() ChannelNew body);
 
@@ -110,6 +114,10 @@ abstract class RocketChatApi {
 
   @POST('/api/v1/groups.delete')
   Future<SuccessResponse> deleteGroup(@Body() DeleteRoomRequest body);
+
+  @POST('/api/v1/im.delete')
+  Future<SuccessResponse> deleteDirectMessageRoom(@Body() DeleteRoomRequest body);
+
 
   @GET("/api/v1/groups.members")
   Future<GroupMembersResponse> getGroupsMembers(
@@ -189,5 +197,13 @@ abstract class RocketChatApi {
   @POST('/api/v1/push.token')
   Future<SuccessResponse> pushToken(
       @Body() PushTokenRequest body);
+
+  @GET("/api/v1/chat.search")
+  Future<ChannelMessages> searchMessage({
+    @Query("roomId") String roomId = '',
+    @Query("searchText") String searchText = '',
+    @Query("offset") int offset = 0,
+    @Query("count") int count = 20,
+  });
 
 }

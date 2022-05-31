@@ -21,6 +21,7 @@ class MessageAttachment {
   bool? titleLinkDownload;
   DateTime? ts;
   String? videoUrl;
+  int? videoSize;
 
   MessageAttachment({
     this.audioUrl,
@@ -71,6 +72,7 @@ class MessageAttachment {
       titleLinkDownload = json['title_link_download'];
       ts = DateTime.parse(json['ts']);
       videoUrl = json['video_url'];
+      videoSize = json['video_size'];
     }
   }
 
@@ -95,6 +97,7 @@ class MessageAttachment {
         'title_link_download': titleLinkDownload,
         'ts': ts != null ? ts!.toIso8601String() : null,
         'video_url': videoUrl,
+        'video_size' : videoSize,
       };
 
   @override

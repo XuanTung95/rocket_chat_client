@@ -12,7 +12,7 @@ class SubscriptionUpdate {
   DateTime? ts;
   String? rid;
   String? name;
-  String? fName;
+  String? fname;
   String? t;
   UserModel? u;
   DateTime? ls;
@@ -29,7 +29,7 @@ class SubscriptionUpdate {
     this.ts,
     this.rid,
     this.name,
-    this.fName,
+    this.fname,
     this.t,
     this.u,
     this.ls,
@@ -47,7 +47,7 @@ class SubscriptionUpdate {
     ts = json['ts'] != null ? DateTime.parse(json['ts']) : null;
     rid = json['rid'];
     name = json['name'];
-    fName = json['fName'];
+    fname = json['fname'];
     t = json['t'];
     u = json['u'] != null ? UserModel.fromJson(json['u']) : null;
     ls = json['ls'] != null ? DateTime.parse(json['ls']) : null;
@@ -78,7 +78,7 @@ class SubscriptionUpdate {
       "ts": ts?.toIso8601String(),
       "rid": rid,
       "name": name,
-      "fName": fName,
+      "fname": fname,
       "t": t,
       "u": u,
       "ls": ls?.toIso8601String(),
@@ -89,6 +89,6 @@ class SubscriptionUpdate {
 
   @override
   String toString() {
-    return 'SubscriptionUpdate{id: $id, open: $open, alert: $alert, unread: $unread, userMentions: $userMentions, groupMentions: $groupMentions, ts: $ts, rid: $rid, name: $name, fName: $fName, t: $t, u: $u, ls: $ls, updatedAt: $updatedAt, roles: $roles}';
+    return 'SubscriptionUpdate{id: $id, open: $open, alert: $alert, unread: $unread, userMentions: $userMentions, groupMentions: $groupMentions, ts: $ts, rid: $rid, name: $name, fname: $fname, t: $t, u: $u, ls: $ls, updatedAt: $updatedAt, roles: $roles}';
   }
 }

@@ -19,11 +19,6 @@ class WebSocketConnection extends ValueNotifier<SocketConnectionStatus> {
     _authToken = value;
   }
 
-  /// Handle when socket is closed
-  Future<bool> onClose() async {
-    return false;
-  }
-
   /// Handle when cannot create a connection
   Future<bool> onConnectError(dynamic error) async {
     return false;
@@ -37,15 +32,12 @@ class WebSocketConnection extends ValueNotifier<SocketConnectionStatus> {
       : super(SocketConnectionStatus.disconnected) {
     _autoWebSocket = AutoReconnectWebSocket(
       url: url,
-      onClose: () {
-        return onClose();
-      },
-      onConnectError: (error) {
+      onClosed: (error) {
         return onConnectError(error);
       },
     );
-    _autoWebSocket.addListener(() async {
-      switch (_autoWebSocket.value) {
+    _autoWebSocket.stateChangeListeners.add((state) async {
+      switch (_autoWebSocket.state) {
         case ConnectionState.connected:
           _onWebSocketConnected();
           break;
@@ -122,7 +114,7 @@ class WebSocketConnection extends ValueNotifier<SocketConnectionStatus> {
 
   void sendMessage(String msg) {
     if (_autoWebSocket.sink == null) {
-      print('Cannot send msg [$msg], status: [$value], socket status: [${_autoWebSocket.value}]');
+      print('Cannot send msg [$msg], status: [$value], socket status: [${_autoWebSocket.state}]');
     }
     print('send: [$msg]');
     _autoWebSocket.sink!.add(msg);

@@ -14,7 +14,8 @@ dependencies:
   retrofit: '>=3.0.0 <4.0.0'
   dio: ^4.0.6
   auto_reconnect_websocket:
-    path: C:\Users\Admin\OneDrive\Desktop\Develop\Repo\auto_reconnect_websocket
+    git:
+      url: https://github.com/XuanTung95/auto_reconnect_websocket.git
 
 
 dev_dependencies:

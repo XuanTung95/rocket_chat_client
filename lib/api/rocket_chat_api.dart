@@ -144,6 +144,9 @@ abstract class RocketChatApi {
   @POST('/api/v1/groups.addOwner')
   Future<SuccessResponse> groupsAddOwner(@Body() RoomUpdateUserRequest body);
 
+  @POST('/api/v1/groups.removeOwner')
+  Future<SuccessResponse> groupsRemoveOwner(@Body() RoomUpdateUserRequest body);
+
   @POST('/api/v1/method.call/addUsersToRoom')
   Future<SuccessResponse> addUsersToRoom(@Body() AddUserToRoomRequest body);
 

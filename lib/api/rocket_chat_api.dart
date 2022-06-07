@@ -15,6 +15,7 @@ import '../models/method/create_direct_message_request.dart';
 import '../models/method/get_room_by_name_request.dart';
 import '../models/new/channel_new.dart';
 import '../models/new/message_new.dart';
+import '../models/notification/delete_token_request.dart';
 import '../models/response/channel_new_response.dart';
 import '../models/response/command_list_response.dart';
 import '../models/response/message_new_response.dart';
@@ -200,6 +201,10 @@ abstract class RocketChatApi {
   @POST('/api/v1/push.token')
   Future<SuccessResponse> pushToken(
       @Body() PushTokenRequest body);
+
+  @DELETE('/api/v1/push.token')
+  Future<SuccessResponse> deleteToken(
+      @Body() DeleteTokenRequest body);
 
   @GET("/api/v1/chat.search")
   Future<ChannelMessages> searchMessage({

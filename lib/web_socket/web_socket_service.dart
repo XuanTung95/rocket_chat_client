@@ -12,7 +12,6 @@ class WebSocketService {
 
   WebSocketService(this.socketConnection);
 
-
   void streamNotifyUser(String id, List<String> params) {
     Map msg = {
       "msg": "sub",

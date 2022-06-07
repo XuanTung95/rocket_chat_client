@@ -43,4 +43,8 @@ class RocketChatClient {
   void connectWebSocket() {
     socketConnection.connectAndLogin();
   }
+
+  void dispose() {
+    socketConnection.dispose();
+  }
 }

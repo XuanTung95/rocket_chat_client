@@ -591,6 +591,25 @@ class _RocketChatApi implements RocketChatApi {
   }
 
   @override
+  Future<ListUsersResponse> getListUser(selector, count) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'query': selector,
+      r'count': count
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListUsersResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/users.list',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ListUsersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<SuccessResponse> uploadFileToRoom(roomId, data, sendProgress) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -728,6 +747,22 @@ class _RocketChatApi implements RocketChatApi {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ChannelMessages.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UserInfoResponse> getUserInfoById(username) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'username': username};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserInfoResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/v1/users.info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserInfoResponse.fromJson(_result.data!);
     return value;
   }
 

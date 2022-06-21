@@ -6,6 +6,7 @@ class RoomSettingRequest {
   String? roomDescription;
   String? roomAnnouncement;
   String? roomTopic;
+  String? roomAvatar;
 
   RoomSettingRequest(
       {this.rid,
@@ -20,6 +21,7 @@ class RoomSettingRequest {
     roomDescription = json['roomDescription'];
     roomAnnouncement = json['roomAnnouncement'];
     roomTopic = json['roomTopic'];
+    roomAvatar = json['roomAvatar'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,6 +38,9 @@ class RoomSettingRequest {
     }
     if (roomTopic != null) {
       data['roomTopic'] = roomTopic;
+    }
+    if (roomAvatar != null) {
+      data['roomAvatar'] = roomAvatar;
     }
     return data;
   }

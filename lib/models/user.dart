@@ -20,6 +20,7 @@ class UserModel {
   String? avatarETag;
   Map<String, String>? customFields;
   bool? success;
+  DateTime? lastLogin;
 
   UserModel({
     this.id,
@@ -36,6 +37,7 @@ class UserModel {
     this.avatarETag,
     this.customFields,
     this.success = false,
+    this.lastLogin,
   });
 
   UserModel.fromJson(Map<String, dynamic>? json) {
@@ -87,6 +89,9 @@ class UserModel {
       }
 
       avatarUrl = json['avatarUrl'];
+      if (json['lastLogin'] != null) {
+        lastLogin = DateTime.tryParse(json['lastLogin']);
+      }
       avatarETag = json['avatarETag'];
       if (json['customFields'] != null) {
         customFields = Map<String, String>.from(json['customFields']);
@@ -148,7 +153,9 @@ class UserModel {
     if (success != null) {
       map['success'] = success;
     }
-
+    if (lastLogin != null) {
+      map['lastLogin'] = lastLogin;
+    }
     return map;
   }
 

@@ -44,6 +44,7 @@ class RoomDisplay {
   String? prid;
   String? announcement;
   String? topic;
+  String? avatarETag;
 
   RoomDisplay(
       {this.id,
@@ -65,6 +66,7 @@ class RoomDisplay {
       this.encrypted,
       this.name,
       this.u,
+      this.avatarETag,
       this.prid});
 
   factory RoomDisplay.fromJson(Map<String, dynamic> json) => _$RoomDisplayFromJson(json);

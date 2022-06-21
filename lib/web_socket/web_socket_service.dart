@@ -23,6 +23,17 @@ class WebSocketService {
     socketConnection.sendMessage(jsonEncode(msg));
   }
 
+  void streamNotifyLogged(String id, List<String> params) {
+    Map msg = {
+      "msg": "sub",
+      "id": id,
+      "name": "stream-notify-logged",
+      "params": params
+    };
+
+    socketConnection.sendMessage(jsonEncode(msg));
+  }
+
   void streamNotifyRoom(String id, List<String> params) {
     Map msg = {
       "msg": "sub",

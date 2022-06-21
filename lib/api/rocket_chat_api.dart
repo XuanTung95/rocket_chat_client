@@ -3,11 +3,13 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:rocket_chat_client/models/method/create_direct_message_response.dart';
 import 'package:rocket_chat_client/models/notification/push_token_request.dart';
+import 'package:rocket_chat_client/models/response/user_info_response.dart';
 import '../models/authen/login.dart';
 import '../models/authentication.dart';
 import '../models/channel_counters.dart';
 import '../models/channel_messages.dart';
 import '../models/default_response.dart';
+import '../models/list_users_response.dart';
 import '../models/message/delete_message_body.dart';
 import '../models/message/send_message_req.dart';
 import '../models/method/add_user_to_room_request.dart';
@@ -173,6 +175,11 @@ abstract class RocketChatApi {
     @Query("selector") String selector,
   );
 
+  @GET('/api/v1/users.list')
+  Future<ListUsersResponse> getListUser(
+      @Query("query") String selector,
+      @Query("count") int count,);
+
   @POST('/api/v1/rooms.upload/{roomId}')
   Future<SuccessResponse> uploadFileToRoom(
       @Path("roomId") String roomId, @Body() FormData data, @SendProgress() ProgressCallback sendProgress);
@@ -214,4 +221,8 @@ abstract class RocketChatApi {
     @Query("count") int count = 20,
   });
 
+  @GET("/api/v1/users.info")
+  Future<UserInfoResponse> getUserInfoById(
+      @Query("username") String username,
+      );
 }
